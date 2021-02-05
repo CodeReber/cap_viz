@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Test it</h1>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <div id="plot"></div>
+  
+  <script>
+      const url = "http://127.0.0.1:5000/api/data";
+      d3.json(url).then(function(data){
+          var name = []
+          var date = []
+          var size = []
+          data.test.forEach(function(item, index){
+              if(item.Aggr_Name == 'aggr1_n1_1t_sas'){
+                    name.push(item.Aggr_Name);
+                    date.push(item.Date);
+                    size.push(item.Used_Size);
+              }
+              
+          });
+        console.log(date)
+        var trace1 = {
+            x: date,
+            y: size,
+            type: "line"
+        };
+        var d = [trace1];
+        var layout = {
+            title: "Chart"   
+        }
+        Plotly.newPlot("plot", d, layout);
+      });
+    
+
+    //   const dataPromise = d3.json(url);
+    //   console.log("Data Promise", dataPromise)
+
+  </script> 
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script> -->
+<!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+</body>
+</html>
